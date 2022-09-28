@@ -50,7 +50,11 @@ class GameBoard {
                         ship.position.forEach(coordinate => {
                         if (coordinate[0] === x && coordinate[1] === y) {
                             ship.getHit();
-                            console.log('sunk: ', ship.isSunk())
+                            if(ship.isSunk()){
+                                console.log('sunk: ', ship.isSunk())
+                                return 'ship sunk!'
+                            }
+                            
                         }
                     }) 
                 })
