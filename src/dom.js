@@ -23,6 +23,14 @@ function createGrid(gridSize, parent) {
     }
 }
 
+function endTurn() {
+    if(turn === 'player') {
+        squareClick()
+        return turn = 'opponent'
+    }
+    return turn = 'player'
+}
+
 function addShipsToPlayerGrid(ships) {
     let playerSquaresDOM = document.querySelectorAll('.playerContainer > .gameboard > .gridColumn > .gridBlock')
 
@@ -75,28 +83,41 @@ function updateMessageBoard() {
     }
 }
 
+function displayWinningMessage() {
+    if(turn === 'player') {
+       return messageBoardDOM.textContent = 'All your opponent\'s ships are sunk, you won!' 
+    }
+
+    return messageBoardDOM.textContent = 'All your ships are sunk, you lost!'  
+}
+
 function squareClick(board) {
-    let opponentSquaresDOM = document.querySelectorAll('.opponentContainer > .gameboard > .gridColumn > .gridBlock')
-    opponentSquaresDOM.forEach(square => {
+    let currentSquaresDOM
+    // if(turn === 'player') {
+        currentSquaresDOM = document.querySelectorAll('.opponentContainer > .gameboard > .gridColumn > .gridBlock')
+    // } else {currentSquaresDOM = document.querySelectorAll('.playerContainer > .gameboard > .gridColumn > .gridBlock')}
+
+    currentSquaresDOM.forEach(square => {
         square.addEventListener('click', () => {
             let xDOM = Number(square.getAttribute('x'));
             let yDOM = Number(square.getAttribute('y'));
             let attack = board.receiveAttack(xDOM, yDOM);
             console.log(attack)
 
-            if(attack === 'you missed!') {
+            if(attack.outcome === 'you missed!') {
                 square.textContent = '●'
                 square.style.background = '#f2f4f8';
                 square.style.cursor = 'default';
-                turn = 'opponent';
                 updateMessageBoard();
             }
 
-            if(attack === 'you hit a ship!') {
+            if(attack.outcome === 'you hit a ship!' || attack.outcome === 'ship sunk!') {
                 square.textContent = '❌'
+                square.style.cursor = 'default';
+                square.replaceWith(square.cloneNode(true));
 
                 // Grays out diagonal squares
-                opponentSquaresDOM.forEach(position => {                    
+                currentSquaresDOM.forEach(position => {                    
                     if((Number(position.getAttribute('x')) === xDOM-1 ||
                         Number(position.getAttribute('x')) === xDOM+1) &&
                         (Number(position.getAttribute('y')) === yDOM-1 ||
@@ -107,10 +128,32 @@ function squareClick(board) {
                             position.replaceWith(position.cloneNode(true));
                         }
                 })
-            }
-            square.replaceWith(square.cloneNode(true));
+                if(attack.outcome === 'ship sunk!') {
+                    attack.shipPosition.forEach(coordinate => {
+                        currentSquaresDOM.forEach(position => {
+                            if((coordinate[0]-1 <= Number(position.getAttribute('x')) && Number(position.getAttribute('x')) <= coordinate[0]+1) &&
+                               (coordinate[1]-1 <= Number(position.getAttribute('y')) && Number(position.getAttribute('y')) <= coordinate[1]+1) &&
+                               (!position.classList.contains('hasShip'))) {
+                                    position.textContent = '●'
+                                    position.style.background = '#f2f4f8';
+                                    position.style.cursor = 'default';
+                                    position.replaceWith(position.cloneNode(true));
+                                }
+                        })
+                    })
+                    if(board.checkIfAllShipsSunk()) {
+                        displayWinningMessage();
+                        currentSquaresDOM.forEach(position => {
+                            position.style.cursor = 'default';
+                            position.replaceWith(position.cloneNode(true));
 
-            
+                        })
+                    }
+                }
+             
+            }
+            square.replaceWith(square.cloneNode(true)); 
+   
         });
     })
     

@@ -1,13 +1,15 @@
 import Ship from "./ship";
 
 class GameBoard {
-
+    constructor(player) {
+        this.player = player;
+    }
+    
     shipPositions = [];
     allShotsTaken = [];
     missedShots = [];
     ships = [];
     previousShot = [];
-
     
     placeShip(x, y, direction, shipSize) {
         let ship = new Ship(shipSize);
@@ -45,27 +47,31 @@ class GameBoard {
 
         // execute hit on the ship placed on the coordinates
         for(let i=0;i<this.shipPositions.length;i++) {
+            let sunkCheck    
+            let shipPosition                       
             if(this.shipPositions[i][0] === x && this.shipPositions[i][1] === y) {
                  this.ships.forEach(ship => {
                         ship.position.forEach(coordinate => {
                         if (coordinate[0] === x && coordinate[1] === y) {
                             ship.getHit();
-                            if(ship.isSunk()){
-                                console.log('sunk: ', ship.isSunk())
-                                return 'ship sunk!'
-                            }
-                            
+                            sunkCheck = ship.isSunk();
+                            shipPosition = ship.position;                            
                         }
                     }) 
                 })
-                return 'you hit a ship!';
+                console.log('is sunk: ', sunkCheck)
+                if(sunkCheck) {
+
+                    return {outcome: 'ship sunk!', shipPosition};
+                } 
+                return {outcome: 'you hit a ship!'};
 
             }
         }
 
         // If no ship was hit, pushes the coordinates onto the missed shots array.
         this.missedShots.push([x,y]);
-        return 'you missed!';
+        return {outcome: 'you missed!'};
     }
 
     checkIfAllShipsSunk() {

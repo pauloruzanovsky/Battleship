@@ -1,15 +1,9 @@
-import Ship from "./factories/ship"
-import Player from "./factories/player"
+
 import Gameboard from "./factories/gameBoard"
 import {startGameOnClick, createGrid, playerBoardDOM, opponentBoardDOM} from "./dom"
 
-
-let playerName = 'Paulo' 
-let player = new Player(playerName)
-let computer = new Player('Computer')
-
-let gbPlayer = new Gameboard()
-let gbComputer = new Gameboard()
+let gbPlayer = new Gameboard('Player')
+let gbComputer = new Gameboard('Computer')
 
 
 // Placing ships for each player: one length 5, one length 4, two length 3, one length 2
