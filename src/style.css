@@ -1,3 +1,128 @@
-h1 {
-    color: blue;
+/* CSS RESET */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+html {
+  /* footer support */
+  position: relative;
+  min-height: 100%;
+}
+body {
+  background-color: var(--grey);
+  color: var(--black);
+  font-family: 'Poppins', sans-serif;
+  word-wrap: break-word;
+
+}
+button,
+input {
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+  outline: none;
+}
+input[type='text'],
+input[type='number'] {
+  cursor: text;
+}
+
+ul, li {
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+  list-style: none;
+}
+/* CSS START */
+@font-face{
+    font-family: Poppins;
+    src: url(./fonts/Poppins-Regular.ttf);
+    font-weight: 400;
+}
+@font-face{
+    font-family: Poppins;
+    src: url(./fonts/Poppins-Medium.ttf);
+    font-weight: 500;
+}
+@font-face{
+    font-family: Poppins;
+    src: url(./fonts/Poppins-SemiBold.ttf);
+    font-weight: 600;
+}
+@font-face{
+  font-family: Poppins;
+  src: url(./fonts/Poppins-Bold.ttf);
+  font-weight: 900;
+}
+
+.content {
+    display: grid;
+    place-items: center;
+    gap: 20px;
+}
+
+.title { 
+    padding: 10px;
+    text-align: center;
+}
+
+.gameboards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    gap: 50px;
+    place-items: center;
+}
+
+.gameboard {
+    display: grid;
+    grid-template-columns: repeat(10,50px);
+    outline: 1px solid black;
+}
+.opponentContainer > .gameboard {
+    cursor:crosshair
+}
+
+.opponentContainer > .gameboard > .gridColumn > .gridBlock:hover{
+    background:rgb(240, 239, 239);
+}
+
+.gridBlock {
+    height: 50px;
+    border: 1px solid rgb(185, 195, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;;
+
+}
+
+.playerContainer > .gameboard > .gridColumn > .gridBlock.hasShip {
+    border: 2px solid blue;
+    background: rgb(0, 0, 255, 0.1);
+}
+
+.startButton {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(204, 204, 204);
+}
+
+.startButton:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 1px;
+
+}
+
+.messageBoard { 
+    height: 30px;
+    font-size: 20px;
+}
+
+.hasShip {
+    font-size: 40px;
 }

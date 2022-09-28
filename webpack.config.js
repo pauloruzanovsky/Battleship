@@ -1,9 +1,9 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/ship.js',
+  entry: './src/game.js',
   output: {
-    filename: 'main.js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   module: {
