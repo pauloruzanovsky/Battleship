@@ -42,6 +42,42 @@ class GameBoard {
         return
     }
 
+    placeRandomShips() {
+        let direction;
+        let placed = 0;
+        let shipSizes = [5,4,3,3,2];
+        for(let i = 0; i < shipSizes.length; i++) {
+            while(placed !== i+1) {
+                let x = Math.floor((Math.random()*10)+1)
+                let y = Math.floor((Math.random()*10)+1)
+                console.log('x: ', x)
+                console.log('y: ', y)
+                if(x >= 5) {
+                    direction = 'x'
+                } else {
+                    direction = 'y'
+                }  
+                if(!(this.placeShip(x,y,direction,shipSizes[i]) === 'invalid position')) {
+                    placed++
+                };
+            }
+        }
+
+    }    
+    removeShips() {
+        while(this.allShotsTaken.length) {
+            this.allShotsTaken.pop();
+        }
+        while(this.shipPositions.length) {
+            this.shipPositions.pop();
+        }
+
+        while(this.ships.length) {
+            this.ships.pop();
+        }
+        console.log(this.shipPositions)
+    }
+
     receiveAttack(x,y) {
         this.allShotsTaken.push([x,y]);
 
@@ -73,7 +109,7 @@ class GameBoard {
         this.missedShots.push([x,y]);
         return {outcome: 'you missed!'};
     }
-
+    
     checkIfAllShipsSunk() {
         if(this.ships.length === 0) {
             return false;
@@ -88,6 +124,9 @@ class GameBoard {
     // checks if there is a ship already placed on the coordinate or 1 square of distance
     checkPositionAvailability(shipPosition, usedPositions) {
         for(let i = 0; i < shipPosition.length; i++) {
+            if(shipPosition[i][0] < 1 || shipPosition[i][0] > 10 || shipPosition[i][1] < 1 || shipPosition[i][1] > 10) {
+                return false;
+            }
             for(let j = 0; j < usedPositions.length; j++) {
 
                 if((shipPosition[i][0]-1 <= usedPositions[j][0] && usedPositions[j][0] <= shipPosition[i][0] + 1) &&

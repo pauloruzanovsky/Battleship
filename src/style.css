@@ -70,6 +70,7 @@ ul, li {
 .title { 
     padding: 10px;
     text-align: center;
+    font-size: 80px;
 }
 
 .gameboards {
@@ -89,40 +90,84 @@ ul, li {
     cursor:crosshair
 }
 
-.opponentContainer > .gameboard > .gridColumn > .gridBlock:hover{
+.opponentContainer > .gameboard > .gridColumn > .gridBlock:hover, .playerContainer > .gameboard > .gridColumn > .gridBlock:hover{
     background:rgb(240, 239, 239);
 }
 
-.gridBlock {
+
+
+
+
+.gridBlock, .shipContainer > * {
     height: 50px;
-    border: 1px solid rgb(185, 195, 255);
+    width: 50px;
     display: flex;
     align-items: center;
-    justify-content: center;;
+    justify-content: center;
+    border: 1px solid rgb(185, 195, 255);
+
 
 }
 
-.playerContainer > .gameboard > .gridColumn > .gridBlock.hasShip {
+.playerContainer > .gameboard > .gridColumn > .gridBlock.hasShip, .shipContainer > * {
     border: 2px solid blue;
     background: rgb(0, 0, 255, 0.1);
 }
 
-.startButton {
+button {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid rgb(204, 204, 204);
+
 }
 
-.startButton:hover {
+button:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 1px;
 
 }
 
+.startButton.inactive {
+    cursor:not-allowed
+}
+
+.playAgainButton {
+    display: none;
+}
+
+.resetButton {
+    display: none;
+}
 .messageBoard { 
     height: 30px;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .hasShip {
     font-size: 40px;
+}
+
+.showShip {
+    border: 2px solid red;
+
+    background: rgba(136, 255, 0, 0.1);
+
+}
+
+.playerContainer > p, .opponentContainer > p {
+    font-size: 30px;
+}
+
+.shipBlock { 
+    background: rgba(1, 255, 221, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    border: 1px solid black;
+    width: 300px;
+    height: 300px;
+}
+
+.shipBlockMessage, .shipBlockMessage2 {
+    text-align: center;
+    font-size: 20px;
 }
