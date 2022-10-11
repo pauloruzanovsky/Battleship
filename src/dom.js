@@ -109,6 +109,11 @@ function playerShipsSelection(playerBoard) {
         let part3 = document.createElement('div');
         let part4 = document.createElement('div');
         let part5 = document.createElement('div');
+        let child = shipContainerDOM.lastElementChild;
+        while(child) {
+            shipContainerDOM.removeChild(child);
+            child = shipContainerDOM.lastElementChild;
+        }
         shipContainerDOM.append(part1, part2, part3, part4, part5);
         placeShipOnClick(playerBoard,5)
     }
@@ -163,7 +168,8 @@ function playerShipsSelection(playerBoard) {
         shipBlockMessageDOM.style.display = 'none'
         shipBlockMessage2DOM.textContent = 'Good luck!';
         startButton.disabled = false;
-
+        startButton.style.display = 'block';
+        
 
     }
 
