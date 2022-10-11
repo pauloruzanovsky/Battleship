@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/pauloruzanovsky/Battleship/issues"
   },
-  "homepage": "https://github.com/pauloruzanovsky/Battleship#readme",
+  "homepage": "https://github.com/pauloruzanovsky/Battleship/tree/gh-pages",
   "devDependencies": {
     "@babel/core": "^7.19.1",
     "@babel/preset-env": "^7.19.1",
