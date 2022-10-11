@@ -1,6 +1,7 @@
 
 import Gameboard from "./factories/gameBoard"
 import {resetButton, startButton, playAgainButton, showShips, playerShipsSelection, startGame, createGrid, playerBoardDOM, opponentBoardDOM} from "./dom"
+import css from "style.css";
 
 let gbPlayer = new Gameboard('Player')
 let gbComputer = new Gameboard('Computer')
